@@ -17,3 +17,8 @@ func hand(_ codes: String...) -> Hand {
 func cards(_ codes: String...) -> [Card] {
     codes.map { Card(code: $0)! }
 }
+
+@MainActor
+func stackedGame(_ codes: String...) -> BlackjackGame {
+    BlackjackGame(shuffler: StackedShuffler(topCards: codes.map { Card(code: $0)! }))
+}

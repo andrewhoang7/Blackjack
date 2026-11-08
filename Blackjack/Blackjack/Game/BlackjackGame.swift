@@ -51,7 +51,22 @@ struct BlackjackGame {
         playerHand.add(deck.draw())
         if playerHand.isBust {
             finishRound()
+        } else if playerHand.value == 21 {
+            playDealerAndFinish()
         }
+    }
+
+    mutating func stand() {
+        guard phase == .playerTurn else { return }
+        playDealerAndFinish()
+    }
+
+    private mutating func playDealerAndFinish() {
+        // The dealer has no choices: hit below 17, stand on any 17, soft 17 included.
+        while dealerHand.value < 17 {
+            dealerHand.add(deck.draw())
+        }
+        finishRound()
     }
 
     private mutating func finishRound() {

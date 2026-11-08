@@ -12,3 +12,8 @@
 func hand(_ codes: String...) -> Hand {
     Hand(codes.map { Card(code: $0)! })
 }
+
+@MainActor
+func cards(_ codes: String...) -> [Card] {
+    codes.map { Card(code: $0)! }
+}

@@ -5,7 +5,6 @@
 //  Created by Andrew Hoang on 11/8/26.
 //
 
-import Foundation
 import XCTest
 @testable import Blackjack
 
@@ -35,5 +34,12 @@ final class DeckTests: XCTestCase {
     func testRandomShuffleKeepsEveryCard() {
         let shuffled = RandomShuffler().shuffled(Card.fullDeck)
         XCTAssertEqual(Set(shuffled), Set(Card.fullDeck))
+    }
+
+    @MainActor
+    func testReadsAStackedDeckFromTheLaunchEnvironment() {
+        let shuffler = StackedShuffler.fromLaunchEnvironment(["STACKED_DECK": "AS,10H"])
+        XCTAssertEqual(shuffler?.topCards, cards("AS", "10H"))
+        XCTAssertNil(StackedShuffler.fromLaunchEnvironment([:]))
     }
 }

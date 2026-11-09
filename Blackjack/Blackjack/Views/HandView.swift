@@ -22,9 +22,11 @@ struct HandView: View {
                 HStack(spacing: 8) {
                     ForEach(Array(cards.enumerated()), id: \.element) { index, card in
                         CardView(card: card, isFaceDown: index == hiddenCardIndex)
+                            .transition(.opacity)
                     }
                 }
             }
+            .scrollClipDisabled()
             .frame(height: 80)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

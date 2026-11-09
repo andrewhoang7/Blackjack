@@ -70,5 +70,4 @@ final class BlackjackUITests: XCTestCase {
         app.buttons["Done"].tap()
         XCTAssertTrue(app.buttons["dealButton"].waitForExistence(timeout: 2))
     }
-    
 }

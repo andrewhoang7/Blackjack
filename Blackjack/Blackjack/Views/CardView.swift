@@ -24,6 +24,7 @@ struct CardView: View {
             }
         }
         .frame(width: 56, height: 80)
+        .shadow(radius: 2)
         .accessibilityElement()
         .accessibilityLabel(isFaceDown ? "Face-down card" : card.spokenName)
     }

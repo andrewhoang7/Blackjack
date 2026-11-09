@@ -33,6 +33,7 @@ struct GameView: View {
                 controls
             }
             .padding()
+            .background(Color(.felt).ignoresSafeArea())
             .navigationTitle("Blackjack")
             .toolbar {
                 Button("Rules") { showingRules = true }
@@ -42,6 +43,7 @@ struct GameView: View {
                 RulesView()
             }
         }
+        .preferredColorScheme(.dark)
     }
 
     private var bankroll: some View {
@@ -67,22 +69,24 @@ struct GameView: View {
     private var controls: some View {
         if viewModel.isPlayerTurn {
             HStack(spacing: 12) {
-                Button("Hit") { viewModel.hit() }
+                Button("Hit") { withAnimation { viewModel.hit() } }
                     .accessibilityIdentifier("hitButton")
-                Button("Stand") { viewModel.stand() }
+                Button("Stand") { withAnimation { viewModel.stand() } }
                     .accessibilityIdentifier("standButton")
-                Button("Double") { viewModel.doubleDown() }
+                Button("Double") { withAnimation { viewModel.doubleDown() } }
                     .disabled(!viewModel.canDoubleDown)
                     .accessibilityIdentifier("doubleButton")
             }
             .buttonStyle(.bordered)
         } else if viewModel.isOutOfChips {
-            Button("Start over") { viewModel.startOver() }
+            Button("Start over") { withAnimation { viewModel.startOver() } }
                 .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .accessibilityIdentifier("startOverButton")
         } else {
-            Button("Deal") { viewModel.deal() }
+            Button("Deal") { withAnimation { viewModel.deal() } }
                 .buttonStyle(.borderedProminent)
+                .controlSize(.large)
                 .disabled(!viewModel.canDeal)
                 .accessibilityIdentifier("dealButton")
         }

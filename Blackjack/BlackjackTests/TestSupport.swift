@@ -22,3 +22,8 @@ func cards(_ codes: String...) -> [Card] {
 func stackedGame(_ codes: String...) -> BlackjackGame {
     BlackjackGame(shuffler: StackedShuffler(topCards: codes.map { Card(code: $0)! }))
 }
+
+@MainActor
+func stackedViewModel(_ codes: String...) -> GameViewModel {
+    GameViewModel(game: BlackjackGame(shuffler: StackedShuffler(topCards: codes.map { Card(code: $0)! })))
+}
